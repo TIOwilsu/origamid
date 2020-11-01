@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-witdh, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compartible" content="ie-edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app1">
+        <div class="container">
+            <ul 
+                class="row" 
+                @click="changeColor"
+            >
+                <li 
+                    v-for="({ text, classes, style }, index) in items"
+                    :class="classes" 
+                    :key="index"
+                >
+                    <div class="box" :style="style">{{ text }}</div>
+                </li>
+            </ul>
+            <button class="mt-16" @click="changeGrid">Adição/Remoção</button>
+        </div>
+    </div>
+</body>
+<script>
+    const vm1 = new Vue({
+        el: '#app1',
+        data: () => ({
+            activeGrid: false,
+            color: '' 
+        }),
+        computed: {
+            items(){
+                const { activeGrid, color } = this
+                const config = { 
+                    classes: [{ 'col-25 mb-0': activeGrid }, { 'col-100 mb-16': !activeGrid }],
+                    style: [{ backgroundColor: color }]
+                }
+                return [
+                    { 
+                        text: 'Sobre',
+                       ...config
+                    },
+                    { 
+                        text: 'Produtos',
+                       ...config
+                    },
+                    { 
+                        text: 'Serviços',
+                       ...config
+                    },
+                    { 
+                        text: 'Contato',
+                       ...config
+                    }
+                ]
+            }
+        },
+        methods:{
+            changeGrid(){
+                this.activeGrid = !this.activeGrid
+            },
+            changeColor(){
+                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`
+            }
+        }
+    })
+</script>
+<style>
+    *, ::after, ::before {
+        box-sizing: border-box;
+    }
+    body{
+        font-family: 'Helvetica';
+        padding: 0;
+        margin: 0;
+    }
+    .container{
+        padding-left: 16px;
+        padding-right: 16px;
+        margin-right: auto;
+        margin-left: auto;
+        width: 100%;
+    }
+    .row{
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: -16px;
+        margin-right: -16px;
+    }
+    [class^=col-]{
+        padding-left: 16px;
+        padding-right: 16px;
+        width: 100%; 
+    }
+    .col-25{
+        -webkit-box-flex: 0;
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+    .col-100{
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .box{
+        align-items: center;
+        background-color: purple;
+        border-radius: 8px;
+        color: white;
+        display: flex;
+        height: 60px;
+        justify-content: center;
+        width: 100%;
+    }
+    .mt-16{
+        margin-top: 16px
+    }
+    .mb-16{
+        margin-bottom: 16px;
+    }
+    .mb-0{
+        margin-bottom: 0px;
+    }
+</style>
+</html>

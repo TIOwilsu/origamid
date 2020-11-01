@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-witdh, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compartible" content="ie-edge">
+    <!-- Add this to <head> -->
+
+    <!-- Load required Bootstrap and BootstrapVue CSS -->
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+    <!-- Load polyfills to support older browsers -->
+    <script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+    <!-- Load Vue followed by BootstrapVue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+    <!-- Load the following for BootstrapVueIcons support -->
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <b-container class="pt-5">
+            <b-row>
+                <b-col md="6">
+                    <b-form>
+                        <b-form-group 
+                            v-for="({ label, labelFor, description, field }, index) in formGroups" 
+                            :key="index"
+                            :id=`input-group-${index}`
+                            :label=`${label}:`
+                            :label-for="labelFor"
+                            :description="description"
+                        >
+                            <component
+                                :is="field.tag"
+                                :name="field.name" 
+                                v-model.lazy="form[[field.name]]"
+                                v-bind="field.props"
+                            />
+                        </b-form-group>
+                        <b-button type="submit" @click.prevent="send">Enviar</b-button>
+                    </b-form>
+                </b-col>
+                <b-col
+                    v-if="sended" 
+                    md="6" 
+                    class="d-flex flex-column align-items-md-center justify-content-center mt-md-0 mt-5"
+                >
+                    <p v-for="({ field }, index) in formGroups">
+                        {{ field.props.placeholder }} : {{ form[[ field.name]] }}
+                    </p>
+                </b-col>
+            </b-row>
+        </b-container>
+    </div>
+</body>
+<script>
+    const vm1 = new Vue({
+        el: '#app',
+        data: () => ({
+            sended: false,
+            form: {
+                name: undefined,
+                email: undefined,
+                tel: undefined,
+                menssage: undefined
+            }
+        }),
+        computed: {
+            formGroups(){
+                return [
+                    {
+                        label: 'Preecha o seu nome',
+                        labelFor:"nameInput",
+                        description:"Defina o seu nome no campo",
+                        field: {
+                            tag: 'b-form-input',
+                            name: 'name',
+                            props: {
+                                id: 'nameInput',
+                                type: 'text',
+                                placeholder: 'Nome'
+                            }
+                        }
+                    },
+                    {
+                        label: 'Preecha o seu e-mail',
+                        labelFor:"emailInput",
+                        description:"Defina o seu e-mail no campo",
+                        field: {
+                            tag: 'b-form-input',
+                            name: 'email',
+                            props: {
+                                id: 'emailInput',
+                                type: 'email',
+                                placeholder: 'E-mail'
+                            }
+                        }
+                    },
+                    {
+                        label: 'Preecha o seu telefone',
+                        labelFor:"telInput",
+                        description:"Defina o seu telefone no campo",
+                        field: {
+                            tag: 'b-form-input',
+                            name: 'tel',
+                            props: {
+                                id: 'telInput',
+                                type: 'tel',
+                                placeholder: 'Telefone'
+                            }
+                        }
+                    },
+                    {
+                        label: 'Preecha o seu mensagem',
+                        labelFor:"menssageInput",
+                        description:"Defina a sua mensagem no campo",
+                        field: {
+                            tag: 'b-form-textarea',
+                            name: 'menssage',
+                            props: {
+                                id: 'menssageInput',
+                                placeholder: 'Mensagem'
+                            }
+                        }
+                    }
+                ]
+            },
+            send(){
+                this.sended = true
+            }
+        }
+    })
+</script>
+<style>
+</style>
+</html>

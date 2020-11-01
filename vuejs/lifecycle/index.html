@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-witdh, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compartible" content="ie-edge">
+    <title>Lifecycle</title>
+    <!-- Add this to <head> -->
+
+    <!-- Load required Bootstrap and BootstrapVue CSS -->
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+    <!-- Load polyfills to support older browsers -->
+    <script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+    <!-- Load Vue followed by BootstrapVue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+    <!-- Load the following for BootstrapVueIcons support -->
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <b-container>
+            <b-row>
+                <b-col cols="12" v-if="items">
+                    <b-list-group>
+                        <b-list-group-item
+                            v-for="(item, index) in items"
+                            :key="index" 
+                        >
+                            <p><strong>{{ index }}</strong>: {{ item }}</p>
+                        </b-list-group-item>
+                    </b-list-group>
+                </b-col>
+                <b-col cols="12" class="mt-5">
+                    <b-button @click="add">Adicionar</b-button>
+                </b-col>
+            </b-row>
+        </b-container>
+    </div>
+</body>
+<script>
+    const vm1 = new Vue({
+        el: '#app',
+        data: () => ({
+            total: 0,
+            items: undefined
+        }),
+        computed: {
+            api(){
+                return 'https://api.github.com/users/origamid'
+            }
+        },
+        methods: {
+            async fetchOrigamid(){
+                try{
+                    const { api } = this
+                    return await fetch(api).then(r => r.json())
+                } catch(err) {
+                    console.log(err)
+                }
+            },
+            add(){
+                this.total++
+            }
+        },
+        async created(){
+            this.items = await this.fetchOrigamid()
+        },
+        updated(){
+           document.title = this.total
+        }
+    })
+</script>
+<style>
+</style>
+</html>

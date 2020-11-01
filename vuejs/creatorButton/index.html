@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-witdh, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compartible" content="ie-edge">
+    <!-- Add this to <head> -->
+
+    <!-- Load required Bootstrap and BootstrapVue CSS -->
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+    <!-- Load polyfills to support older browsers -->
+    <script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+    <!-- Load Vue followed by BootstrapVue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+    <!-- Load the following for BootstrapVueIcons support -->
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Crie o seu próprio botão</h1>
+                </div>
+                <div class="col-md-6 col-12">
+                    <b-form>
+                        <b-form-group 
+                            v-for="({ label, labelFor, description, field }, index) in formGroups" 
+                            :key="index"
+                            :id=`input-group-${index}`
+                            :label=`${label}:`
+                            :label-for="labelFor"
+                            :description="description"
+                        >
+                            <component
+                                :is="field.tag" 
+                                v-model.trim="form[[field.model]]"
+                                v-bind="field.props"
+                            />
+                        </b-form-group>
+                    </b-form>
+                </div>
+                <div class="col-md-6 col-12 d-flex align-items-center justify-content-center">
+                    <b-button :style="styleButton">Button</b-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const vm1 = new Vue({
+        el: '#app',
+        data: () => ({
+            form: {
+                width: undefined,
+                height: undefined,
+                fontSize: undefined,
+                fontFamily: undefined,
+                textAlign: undefined,
+                background: undefined,
+                color: undefined,
+                borderRadius: undefined
+            }
+        }), 
+        computed:{
+            formGroups(){
+                return [
+                    {
+                        label: 'Defina a largura',
+                        labelFor: 'widthInput',
+                        description: 'Personalize a largura do seu botão.',
+                        field: {
+                            tag: 'b-form-input',
+                            model: 'width',
+                            props: {
+                                id: 'widthInput',
+                                type: 'number',
+                                placeholder: 'Largura',
+                            }
+                        }
+                    },
+                    {
+                        label: 'Defina a altura',
+                        labelFor: 'heightInput',
+                        description: 'Personalize a altura do seu botão.',
+                        field: {
+                            tag: 'b-form-input',
+                            model: 'height',
+                            props: {
+                                id: 'heightInput',
+                                type: 'number',
+                                placeholder: 'Altura'
+                            }
+                        }
+                    },
+                    {
+                        label: 'Defina o tamanho da fonte',
+                        labelFor: 'fontSizeInput',
+                        description: 'Personalize o tamanho da fonte do seu botão.',
+                        field: {
+                            tag: 'b-form-input',
+                            model: 'fontSize',
+                            props: {
+                                id: 'fontSizeInput',
+                                type: 'number',
+                                placeholder: 'Tamanho da fonte'
+                            }
+                        }
+                    },
+                    {
+                        label: 'Defina a fonte',
+                        labelFor: 'fontFamilyInput',
+                        description: 'Personalize a fonte do seu botão.',
+                        field: {
+                            tag: 'b-form-input',
+                            model: 'fontFamily',
+                            props: {
+                                id: 'fontFamilyInput',
+                                type: 'text',
+                                placeholder: 'Fonte'
+                            }
+                        }
+                    },
+                    {
+                        label: 'Defina o alinhamento do texto',
+                        labelFor: 'textAlignInput',
+                        description: 'Personalize o alinhamento do texto do seu botão.',
+                        field: {
+                            tag: 'b-form-input',
+                            model: 'textAlign',
+                            props: {
+                                id: 'textAlignInput',
+                                type: 'text',
+                                placeholder: 'Alinhamento do texto'
+                            }
+                        }
+                    },
+                    {
+                        label: 'Defina a cor do de fundo',
+                        labelFor: 'backgroundInput',
+                        description: 'Personalize a cor de fundo do seu botão.',
+                        field: {
+                            tag: 'b-form-input',
+                            model: 'background',
+                            props: {
+                                id: 'backgroundInput',
+                                type: 'color',
+                                placeholder: 'Cor de fundo'
+                            }
+                        }
+                    },
+                    {
+                        label: 'Defina a cor',
+                        labelFor: 'colorInput',
+                        description: 'Personalize a cor do seu botão.',
+                        field: {
+                            tag: 'b-form-input',
+                            model: 'color',
+                            props: {
+                                id: 'colorInput',
+                                type: 'color',
+                                placeholder: 'Cor'
+                            }
+                        }
+                    },
+                    {
+                        label: 'Defina o arredondamento',
+                        labelFor: 'borderRadiusInput',
+                        description: 'Personalize o arredondamento do seu botão.',
+                        field: {
+                            tag: 'b-form-input',
+                            model: 'borderRadius',
+                            props: {
+                                id: 'borderRadiusInput',
+                                type: 'number',
+                                placeholder: 'Arredondamento'
+                            }
+                        }
+                    }
+                ]
+            },
+            styleButton(){
+                const { form } = this
+                return Object.
+                    keys(form).
+                    map((key,index) => {
+                        let value = form[[key]]
+                        if(value){
+                            const isNumber = parseInt(value)
+                            const isHex = value.indexOf('#') === 0
+                            if(isNumber && !isHex){
+                                value = `${value}px`
+                            } 
+                        }
+                        return { [[key]]: value } 
+                    })
+            }
+        }
+    })
+</script>
+<style>
+</style>
+</html>
