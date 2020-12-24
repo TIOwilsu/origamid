@@ -4,26 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-witdh, initial-scale=1.0">
     <meta http-equiv="X-UA-Compartible" content="ie-edge">
-    <title>Componentes</title>
+    <title>Props</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <link rel="stylesheet" href="./assets/css/style.css"></link>
 </head>
 <body>
     <div id="app">
-        <weather />
-        <market />
+        <search-stock />
     </div>
 </body>
 <script type="module">
-    import Market from './Market.js'
-    import Weather from './Weather.js'
-
-    Vue.component('Weather', Weather)
-   
+    import SearchStock from './searchStock.js'
     const vm = new Vue({
         el: '#app',
-        components:{
-            Market
+        components: {
+            SearchStock
         }
     })
 </script>
