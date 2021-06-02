@@ -1,0 +1,70 @@
+/* Reset */
+body, h1, h2, h3, h4, h5, h6, p, ul {
+    margin: 0;
+}
+
+body, ul {
+    padding: 0;
+}
+
+body{
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Box */
+.box{
+    position: relative;
+    border: 1px solid #dfe1e5;
+    border-radius: 8px;
+    width: 618px;
+}
+
+.box_container{
+    background-color: #fff;
+    border-radius: inherit;
+    padding: 20px 16px 24px;
+}
+
+.box_item{
+    align-items: center;
+    background: transparent;
+    border-radius: 6px;
+    border: 1px solid #dfe1e5;
+    color: #70757a!important;
+    display:flex;
+    font-size: 14px !important;
+    height: 36px;
+    margin-bottom: 8px;
+    padding: 0 0 0 12px;
+}
+
+/* Weather */
+.box_title{
+    color: #878787;
+    font-weight: lighter;
+    font-size: x-large;
+}
+.box_text{
+    color: #878787;
+}
+.weather_date{
+    font-size: medium;
+}
+
+/* Money Rates */
+.money .box_container{
+    display: grid;
+}
+.money .box_item{
+    grid-column: 4 / 12;
+}
+.money .box_icon{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 76px;
+}
+
+
+
