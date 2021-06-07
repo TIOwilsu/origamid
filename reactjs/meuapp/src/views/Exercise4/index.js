@@ -1,5 +1,5 @@
-import TabsProductsRaneApi from "./components/TabsProductsRaneApi";
+import TabsProducts from "./components/TabsProducts";
 
-const Exercise4 = () => <TabsProductsRaneApi />;
+const Exercise4 = () => <TabsProducts />;
 
 export default Exercise4;

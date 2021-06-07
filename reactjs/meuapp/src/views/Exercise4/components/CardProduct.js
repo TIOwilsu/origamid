@@ -1,6 +1,6 @@
 import Card from "../../../components/ui/Card";
 
-const CardProductRaneApi = ({ data }) => {
+const CardProduct = ({ data }) => {
   const name = () => data.nome;
   const price = () => `R$ ${data.preco}`;
   const photos = () => data.fotos;
@@ -22,4 +22,4 @@ const CardProductRaneApi = ({ data }) => {
   );
 };
 
-export default CardProductRaneApi;
+export default CardProduct;

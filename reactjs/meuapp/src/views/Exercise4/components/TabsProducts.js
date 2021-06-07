@@ -1,10 +1,11 @@
 import React from "react";
 import Button from "../../../components/ui/Button";
 import Tabs from "../../../components/ui/Tabs";
-import CardProductRaneApi from "./CardProductRaneApi";
+import Loading from "../../../components/ui/Loading";
+import CardProduct from "./CardProduct";
 import { getProduct } from "../../../services/ranekapi";
 
-const TabsProductRaneApi = (props) => {
+const TabsProducts = () => {
   const [product, setProduct] = React.useState("");
   const tabs = [
     { button: { type: "tablet", text: "Tablet" } },
@@ -15,20 +16,17 @@ const TabsProductRaneApi = (props) => {
   ];
 
   const fetchProduct = async (value) => {
-    setProduct("");
-    const data = await getProduct(value);
-    setProduct(data);
+    try {
+      const data = await getProduct(value);
+      setProduct(data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   React.useEffect(() => {
-    const connect = async () => {
-      try {
-        fetchProduct("tablet");
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    connect();
+    setProduct("");
+    fetchProduct("tablet");
   }, []);
 
   return (
@@ -42,15 +40,11 @@ const TabsProductRaneApi = (props) => {
       </Tabs.Buttons>
       <Tabs.Contents>
         <React.Fragment>
-          {product ? (
-            <CardProductRaneApi data={product} />
-          ) : (
-            <p class="loading">Carregando...</p>
-          )}
+          {product.id ? <CardProduct data={product} /> : <Loading />}
         </React.Fragment>
       </Tabs.Contents>
     </Tabs>
   );
 };
 
-export default TabsProductRaneApi;
+export default TabsProducts;

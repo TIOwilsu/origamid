@@ -4,10 +4,10 @@ import { findSlot } from "../../helpers/index";
 const Buttons = () => null;
 const Contents = () => null;
 
-const Tabs = ({ children }) => {
+const Tabs = ({ children, index }) => {
   const buttons = findSlot(children, Buttons);
   const contents = findSlot(children, Contents);
-  const [position, setPosition] = React.useState(0);
+  const [position, setPosition] = React.useState(index ? index : 0);
 
   const isActive = (key) => position === key;
 
