@@ -2,38 +2,26 @@ import React from "react";
 import Button from "../../../components/ui/Button";
 import Tabs from "../../../components/ui/Tabs";
 import Loading from "../../../components/ui/Loading";
+import Error from "../../../components/ui/Error";
 import CardProduct from "./CardProduct";
 import { getProduct } from "../../../services/ranekapi";
+import { useLocalStorage, useFetch } from "../../../hooks/index";
 
 const TabsProducts = () => {
-  const localType = localStorage.getItem("type");
-
+  const { data, loading, error, request } = useFetch();
   const tabs = [
     { button: { type: "notebook", text: "notebook" } },
     { button: { type: "smartphone", text: "smartphone" } },
   ];
   const [tab] = tabs;
 
-  const [type, setType] = React.useState(
-    localType ? localType : tab.button.type
-  );
-  const [product, setProduct] = React.useState("");
+  const [type, setType] = useLocalStorage("type", tab.button.type);
 
   const types = tabs.map(({ button }) => button.type);
 
   React.useEffect(() => {
-    setProduct("");
-    localStorage.setItem("type", type);
-    const fetchProduct = async () => {
-      try {
-        const data = await getProduct(type);
-        setProduct(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    if (type) fetchProduct();
-  }, [type]);
+    request(getProduct, type);
+  }, [type, request]);
 
   const click = (value) => setType(value);
 
@@ -47,7 +35,11 @@ const TabsProducts = () => {
         ))}
       </Tabs.Buttons>
       <Tabs.Contents>
-        {product.id ? <CardProduct data={product} /> : <Loading />}
+        <React.Fragment>
+          {data.id && <CardProduct data={data} />}
+          {loading && <Loading />}
+          {error && <Error />}
+        </React.Fragment>
       </Tabs.Contents>
     </Tabs>
   );

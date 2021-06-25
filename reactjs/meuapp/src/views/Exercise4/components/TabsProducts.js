@@ -2,11 +2,14 @@ import React from "react";
 import Button from "../../../components/ui/Button";
 import Tabs from "../../../components/ui/Tabs";
 import Loading from "../../../components/ui/Loading";
+import Error from "../../../components/ui/Error";
 import CardProduct from "./CardProduct";
 import { getProduct } from "../../../services/ranekapi";
+import { useFetch } from "../../../hooks/index";
 
 const TabsProducts = () => {
-  const [product, setProduct] = React.useState("");
+  const { data, loading, error, request } = useFetch();
+
   const tabs = [
     { button: { type: "tablet", text: "Tablet" } },
     {
@@ -14,33 +17,26 @@ const TabsProducts = () => {
     },
     { button: { type: "notebook", text: "Notebook" } },
   ];
-
-  const fetchProduct = async (value) => {
-    try {
-      const data = await getProduct(value);
-      setProduct(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [tab] = tabs;
 
   React.useEffect(() => {
-    setProduct("");
-    fetchProduct("tablet");
-  }, []);
+    request(getProduct, tab.button.type);
+  }, [tab.button.type, request]);
 
   return (
     <Tabs>
       <Tabs.Buttons>
         {tabs.map(({ button }, key) => (
-          <Button key={key} handler={() => fetchProduct(button.type)}>
+          <Button key={key} handler={() => request(getProduct, button.type)}>
             {button.text}
           </Button>
         ))}
       </Tabs.Buttons>
       <Tabs.Contents>
         <React.Fragment>
-          {product.id ? <CardProduct data={product} /> : <Loading />}
+          {data.id && <CardProduct data={data} />}
+          {loading && <Loading />}
+          {error && <Error />}
         </React.Fragment>
       </Tabs.Contents>
     </Tabs>
