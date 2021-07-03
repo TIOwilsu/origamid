@@ -8,7 +8,7 @@ const Feedback = ({ items }) => {
       <h4 className="feedback-title">Respostas</h4>
       <ul className="feedback-options">
         {items.map((item, key) => (
-          <li className="feedback-option">
+          <li className="feedback-option" key={key}>
             <h6 className="feedback-option-title">{`Questão 0${key + 1}`}</h6>
             <p className="feedback-option-text">{answer(item)}</p>
           </li>

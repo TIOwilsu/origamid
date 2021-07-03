@@ -1,7 +1,7 @@
 import React from "react";
 import Radios from "../../../components/ui/Radios";
 
-const CardQuestion = ({ data, onChange }) => {
+const Question = ({ data, onChange }) => {
   const [value, setValue] = React.useState(false);
   const { question, answer, options } = data;
   const items = options.map((option) => ({
@@ -28,4 +28,4 @@ const CardQuestion = ({ data, onChange }) => {
   );
 };
 
-export default CardQuestion;
+export default Question;

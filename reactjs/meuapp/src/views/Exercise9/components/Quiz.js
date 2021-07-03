@@ -45,6 +45,7 @@ const Quiz = () => {
     setPosition(count);
   };
   const change = (value) => {
+    console.log(value);
     let items = [...answers];
     items[position] = value;
     setAnswers(items);
