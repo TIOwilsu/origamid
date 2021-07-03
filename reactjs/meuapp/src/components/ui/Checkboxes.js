@@ -12,7 +12,7 @@ const Checkboxes = ({ items = [] }) => {
     }
   };
   return (
-    <div className="checboxes">
+    <div className="checkboxes">
       {items.map((item, key) => (
         <InputGroup label={item.label} key={key}>
           <Checkbox

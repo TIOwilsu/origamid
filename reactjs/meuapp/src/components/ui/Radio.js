@@ -1,16 +1,13 @@
 import React from "react";
 
-const Radio = ({ value = "", checked = false, ...props }) => {
-  const [localValue, setLocalValue] = React.useState(checked);
-  const change = () => {
-    if (!localValue) setLocalValue(!localValue);
-  };
+const Radio = ({ value = "", checked = false, onChange, ...props }) => {
+  const change = ({ target }) => onChange(target.value);
 
   return (
     <input
       type="radio"
       value={value}
-      checked={localValue}
+      checked={checked}
       onChange={change}
       {...props}
     />

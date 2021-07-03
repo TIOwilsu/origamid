@@ -9,6 +9,7 @@ import Exercise5 from "./views/Exercise5/index";
 import Exercise6 from "./views/Exercise6/index";
 import Exercise7 from "./views/Exercise7/index";
 import Exercise8 from "./views/Exercise8/index";
+import Exercise9 from "./views/Exercise9/index";
 
 const Routes = [
   { path: "/exercise1", title: "Exercício 1", component: Exercise1 },
@@ -19,6 +20,7 @@ const Routes = [
   { path: "/exercise6", title: "Exercício 6", component: Exercise6 },
   { path: "/exercise7", title: "Exercício 7", component: Exercise7 },
   { path: "/exercise8", title: "Exercício 8", component: Exercise8 },
+  { path: "/exercise9", title: "Exercício 9", component: Exercise9 },
 ];
 
 const Routers = () => {
